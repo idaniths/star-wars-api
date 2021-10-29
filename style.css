@@ -15,7 +15,7 @@ header {
   max-width: 1300px;
   font-size: xx-large;
   color: #fed702;
-  background-image: url(/assets/header-background.png);
+  background-image: url(assets/header-background.png);
   height: 20rem;
   background-repeat: no-repeat;
   display: flex;
@@ -91,4 +91,13 @@ nav > div {
 }
 nav > div > div {
   margin-left: 0.4rem;
+}
+
+#next,
+#previous {
+  cursor: pointer;
+}
+
+li {
+  list-style-type: none;
 }
