@@ -1,0 +1,16 @@
+Planering:
+
+Gör en komponentsanalys kring mockup
+Lägg upp en grund i html och css
+
+Påbörja javascript
+Kör en fetch på aktuellt API
+Skapa en funktion i fetchen för att skriva ut aktuell info i lista
+
+Skapa en "navbar" med en counter och pilar för next/previous page
+Ordna med en function som tar bort föregående lista vid sidbyte
+
+Implementera loading-spinner mellan sidbyten
+
+
+

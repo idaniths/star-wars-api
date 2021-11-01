@@ -1,0 +1,55 @@
+Måndag: Liljeholmen 09.30-16.00
+Tisdag: Discord 09.30-
+Onsdag: Discord 09.30-
+Torsdag: Liljeholmen 09.30-16.00
+Fredag: Discord 09.30-
+
+API: https://swapi.dev/api/people
+FONT: https://fonts.google.com/specimen/Ropa+Sans?query=ropa+sans
+
+Header:
+h1 - STAR WARS CATALOG
+SW Background image
+
+Main:
+Background-color: grey
+
+
+Characters:
+Section .characters
+	h2 - Characters
+	ul, li ${character.name}  ---- Selected character (at active/select/hover) background opacity and arrow
+		kör en loop över result? väljer specifikt index, ex. data.results[0].name
+		li character -> eventListener -> function update .details
+	footer nav
+		2st knappar, sidoval, setInterval(??, 1500) = visa loading
+		räknare ex. <span class="counter">1<span> / 8 där currentSide++
+
+Section .details
+	h2 - Details
+		article
+			append value from API - "https://swapi.dev/api/people/?page=1" 8 pages total
+			"name": "C-3PO", - data.results[0].name exempelvis
+            		"height": "167", 
+            		"mass": "75", 
+            		"hair_color": "n/a", 
+            		"skin_color": "gold", 
+            		"eye_color": "yellow", 
+            		"birth_year": "112BBY", 
+            		"gender": "n/a",
+
+			Skapa en funktion som filtrerar objektet, ex. "hair_color" -> "Hair color"
+		
+		article
+			append value from API - "https://swapi.dev/api/planets/1/" 8 pages total
+			"name": "Tatooine", 
+    			"rotation_period": "23", 
+    			"orbital_period": "304", 
+    			"diameter": "10465", 
+    			"climate": "arid", 
+    			"gravity": "1 standard", 
+    			"terrain": "desert",
+			
+		
+	
+	
