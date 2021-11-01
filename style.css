@@ -41,6 +41,7 @@ section > h2 {
   align-self: center;
   font-weight: lighter;
   letter-spacing: 0.2rem;
+  
 }
 section {
   transform: translateY(-2.2rem);
@@ -61,6 +62,7 @@ section {
 }
 .character_article {
   height: 50%;
+background-color: #6c7b7c;
 }
 p {
   border: none;

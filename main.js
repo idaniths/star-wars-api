@@ -2,42 +2,63 @@ const nav = document.querySelector("nav");
 let counterOne = document.querySelector(".counterOne");
 let previous = document.getElementById("previous");
 let next = document.getElementById("next");
-let charList = document.querySelector(".char__list");
-const li = document.createElement("li");
+let ul = document.querySelector(".char__list");
+// const li = document.createElement("li");
 
 let fetchedData;
+
+
 ///Lägg till iteration för att skapa
-charList.append(li);
+
 
 function initState() {
-  getPlanets("https://swapi.dev/api/people/?page=1");
+  getCharacters("https://swapi.dev/api/people/?page=1");
 }
 initState();
 
-function getPlanets(planets) {
-  const request = fetch(planets);
+function getCharacters(characters) {
+  let li;
+  const request = fetch(characters);
   request
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      fetchedData = data;
-      li.append(data.results[0].name);
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    fetchedData = data;
+    // li.append(data.results[0].name);
+    for (let i = 0; i <= data.results.length-5; i++){
+      let name = data.results[i].name;
+       li = document.createElement('li');
+        li.appendChild(document.createTextNode(name));
+        ul.appendChild(li);
+    }
     });
 }
+
+// Counter functions
+
+function removeChars(){
+  let charList = document.querySelectorAll(".char__list li")
+  for (let i = 0; i < charList.length; i++) {
+    charList[i].remove();
+  }
+}
+
 
 function clickNext() {
   if (counterOne.innerText < 8) {
     counterOne.innerText++;
   }
-  getPlanets(fetchedData.next);
+  removeChars();
+  getCharacters(fetchedData.next);
 }
 
 function clickPrevious() {
   if (counterOne.innerText > 1) {
     counterOne.innerText--;
   }
-  getPlanets(fetchedData.previous);
+  removeChars();
+  getCharacters(fetchedData.previous);
 }
 
 // function removePrevious() {
