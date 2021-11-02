@@ -4,42 +4,58 @@ let previous = document.getElementById("previous");
 let next = document.getElementById("next");
 let ulChar = document.querySelector(".char__list");
 let ulDetails = document.querySelector(".details__char");
+const ulPlanets = document.querySelector(".details__planets");
 let li = document.createElement("li");
 let fetchedData;
 function initState() {
   getCharacters("https://swapi.dev/api/people/?page=1");
 }
 initState();
-let lists;
-function getDetails(fetchedData) {
-  for (let i = 0; i <= fetchedData.results.length - 5; i++) {
-    // if (fetchedData.results[i].name == li.innerText) {
-    ulDetails.innerHTML = `
-  <h2> ${fetchedData.results[i].name} </h2>
-  <ul>
-  <li>Height: ${fetchedData.results[i].height} </li>
-  <li>Mass: ${fetchedData.results[i].mass} </li>  
-  <li>Hair color: ${fetchedData.results[i].hair_color} </li>
-  <li>Skin color: ${fetchedData.results[i].skin_color}  </li>
-  <li>Eye color: ${fetchedData.results[i].eye_color} </li>
-  <li> Birth year: ${fetchedData.results[i].birth_year} </li>
-  <li>Gender: ${fetchedData.results[i].gender} </li>
-  </ul>
-  `;
-    // ulChar.appendChild(li);
-    // console.log(fetchedData.results[i]);
-  }
-  // }
+
+//Function Detailjer
+function getDetails(fetchedCharacter) {
+  ulDetails.innerHTML = `
+      <h2> ${fetchedCharacter.name} </h2>
+      <ul>
+        <li>Height: ${fetchedCharacter.height} </li>
+        <li>Mass: ${fetchedCharacter.mass} </li>  
+        <li>Hair color: ${fetchedCharacter.hair_color} </li>
+        <li>Skin color: ${fetchedCharacter.skin_color}  </li>
+        <li>Eye color: ${fetchedCharacter.eye_color} </li>
+        <li> Birth year: ${fetchedCharacter.birth_year} </li>
+        <li>Gender: ${fetchedCharacter.gender} </li>
+      </ul>
+    `;
+  console.log(fetchedCharacter);
 }
-// for(let of ulChar)
-// ulChar.addEventListener("click", () => {
-//   getDetails(fetchedData);
-// });
-// ulChar.addEventListener("click", () => {
-//   getDetails(fetchedData);
-// });
+//Function Planeter
+function getPlanets(homeworlds) {
+  console.log(homeworlds);
+  ulPlanets.innerHTML = `
+      <h2> ${homeworlds.name} </h2>
+      <ul>
+        <li>Rotation period: ${homeworlds.rotation_period} </li>
+        <li>Orbital period: ${homeworlds.orbital_period} </li>
+        <li>Diameter: ${homeworlds.diameter} </li>
+        <li>Climate: ${homeworlds.climate}  </li>
+        <li>Gravity: ${homeworlds.gravity} </li>
+        <li> Terrain: ${homeworlds.terrain} </li>
+      </ul>
+    `;
+  // console.log(fetchedCharacter);
+}
 
 ///Lägg till iteration för att skapa
+
+function getCharacterHomeWorld(character) {
+  fetch(character.homeworld)
+    .then((response) => {
+      return response.json();
+    })
+    .then((homeworlds) => {
+      getPlanets(homeworlds);
+    });
+}
 
 function getCharacters(characters) {
   let li;
@@ -50,16 +66,17 @@ function getCharacters(characters) {
     })
     .then((data) => {
       fetchedData = data;
-      // li.append(data.results[0].name);
       for (let i = 0; i <= data.results.length - 5; i++) {
         let name = data.results[i].name;
         li = document.createElement("li");
         li.appendChild(document.createTextNode(name));
+
+        li.addEventListener("click", () => {
+          getDetails(data.results[i]);
+          getCharacterHomeWorld(data.results[i]);
+        });
         ulChar.appendChild(li);
       }
-      getDetails(fetchedData);
-      // ulChar.addEventListener("click", testing(fetchedData));
-      // printPlanets;
     });
 }
 
@@ -98,20 +115,6 @@ function clickPrevious() {
   removeChars();
   getCharacters(fetchedData.previous);
 }
-
-// function removePrevious() {
-//   let li = document.querySelector("li");
-//   li.clear();
-// }
-
-// "count": 82,
-// "next": "https://swapi.dev/api/people/?page=2",
-// "previous": null,
-// "results": [
-//     {
-//         "name": "Luke Skywalker",
-//         "height": "172",
-//         "mass": "77",
 
 next.addEventListener("click", clickNext);
 previous.addEventListener("click", clickPrevious);
