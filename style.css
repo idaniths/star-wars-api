@@ -58,8 +58,26 @@ section {
 
 .details > article {
   height: 50%;
-  background-color: lightgray;
+  background-color: #e1dede;
   width: 100%;
+  margin: 0;
+}
+.details > article > h2 {
+  margin: 0.5rem;
+  color: black;
+}
+.details > article > ul {
+  margin: 0;
+  padding: 0;
+}
+.details > article > ul > li {
+  list-style: none;
+  border: none;
+  font-size: 1rem;
+  margin: 0;
+  padding-bottom: 0.1rem;
+  color: black;
+  background-color: #e1dede;
 }
 .character_article {
   height: 50%;

@@ -7,6 +7,16 @@ Fredag: Discord 09.30-
 API: https://swapi.dev/api/people
 FONT: https://fonts.google.com/specimen/Ropa+Sans?query=ropa+sans
 
+Färger: 
+Mörk grå: #535556
+Gul: #FFD600
+Details header: #748687
+Grå: #8E8E8E
+Ljusgrå: #C4C4C4
+Ljusare grå: #E1DEDE
+Highlightgrå: #444444 
+
+
 Header:
 h1 - STAR WARS CATALOG
 SW Background image
