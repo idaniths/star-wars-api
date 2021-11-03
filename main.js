@@ -11,7 +11,7 @@ function initState() {
 }
 initState();
 
-//Function Details
+//Function Detailjer
 function getDetails(fetchedCharacter) {
   ulDetails.innerHTML = `
       <h2> ${fetchedCharacter.name} </h2>
@@ -33,7 +33,7 @@ function getDetails(fetchedCharacter) {
     `;
   console.log(fetchedCharacter);
 }
-//Function Planets
+//Function Planeter
 function getPlanets(homeworlds) {
   console.log(homeworlds);
   ulPlanets.innerHTML = `
@@ -108,7 +108,6 @@ function removeDetails() {
   }
 }
 
-<<<<<<< HEAD
 generalCounter = () => {
   let counter = 1;
   let counterOne = document.querySelector(".counterOne");
@@ -168,30 +167,3 @@ generalCounter();
 //     clickPrevious()
 //   }
 // });
-=======
-function clickNext() {
-  counterOne.innerText++;
-  removeChars();
-  getCharacters(fetchedData.next);
-}
-
-function clickPrevious() {
-  counterOne.innerText--;
-  removeChars();
-  getCharacters(fetchedData.previous);
-}
-
-
-
-next.addEventListener("click", () =>{ 
-  if(counterOne.innerText < 8){
-    clickNext()
-  }
-});
-
-previous.addEventListener("click", () =>{ 
-  if(counterOne.innerText > 1){
-    clickPrevious()
-  }
-});
->>>>>>> ab1cbd7631e8fce7723bc03933543acdbf5090f3
