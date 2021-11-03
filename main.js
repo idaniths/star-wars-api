@@ -1,41 +1,113 @@
-// const nav = document.querySelector("nav");
 let ulChar = document.querySelector(".char__list");
 let ulDetails = document.querySelector(".details__char");
 const ulPlanets = document.querySelector(".details__planets");
-let li = document.createElement("li");
-
-let fetchedData;
+const buttons = document.querySelectorAll("button");
+let selectedCharacter = null;
+// Buttons
+const charSpecies = document.querySelector(".species");
+const charHomeworld = document.querySelector(".homeworld");
+const charVehicles = document.querySelector(".vehicles");
+const charStarships = document.querySelector(".starships");
+const currentVehicles = [];
 
 function initState() {
   getCharacters("https://swapi.dev/api/people/?page=1");
+  showOrHideCharacterActions();
+
+  // Set up button listeners
+  setUpButtonListeners();
 }
+
+function setUpButtonListeners() {
+  charSpecies.addEventListener("click", () => {
+    getCharacterSpecies();
+  });
+  charHomeworld.addEventListener("click", () => {
+    getCharacterHomeworld();
+  });
+  charVehicles.addEventListener("click", () => {
+    getCharacterVehicles();
+  });
+  charStarships.addEventListener("click", () => {
+    getCharacterSpecies();
+  });
+}
+
 initState();
 
+function getCharacters(characters) {
+  fetch(characters)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      fetchedData = data;
+      for (let i = 0; i <= data.results.length - 5; i++) {
+        let name = data.results[i].name;
+        const li = document.createElement("li");
+        li.appendChild(document.createTextNode(name));
+        li.addEventListener("click", () => {
+          selectedCharacter = data.results[i];
+          removeDetails();
+          showOrHideCharacterActions();
+          setDetails(data.results[i]);
+        });
+        ulChar.appendChild(li);
+      }
+    });
+}
+
+function showOrHideCharacterActions() {
+  showOrHideAction(
+    charSpecies,
+    selectedCharacter && selectedCharacter.species.length !== 0
+  );
+  showOrHideAction(
+    charVehicles,
+    selectedCharacter && selectedCharacter.vehicles.length !== 0
+  );
+  showOrHideAction(
+    charHomeworld,
+    selectedCharacter && selectedCharacter.homeworld
+  );
+  showOrHideAction(
+    charStarships,
+    selectedCharacter && selectedCharacter.starships.length !== 0
+  );
+}
+
+function showOrHideAction(element, show) {
+  if (show) {
+    element.style.display = "inline-block";
+  } else {
+    element.style.display = "none";
+  }
+}
+
 //Function Detailjer
-function getDetails(fetchedCharacter) {
+function setDetails(selectedCharacter) {
   ulDetails.innerHTML = `
-      <h2> ${fetchedCharacter.name} </h2>
+      <h2> ${selectedCharacter.name} </h2>
       <ul>
-        <li>Height: ${fetchedCharacter.height}cm </li>
+        <li>Height: ${selectedCharacter.height}cm </li>
         <li>Mass:   ${(() => {
-          if (fetchedCharacter.mass != "unknown") {
-            return `${fetchedCharacter.mass}kg`;
+          if (selectedCharacter.mass != "unknown") {
+            return `${selectedCharacter.mass}kg`;
           } else {
-            return `${fetchedCharacter.mass}`;
+            return `${selectedCharacter.mass}`;
           }
         })()} </li>  
-        <li>Hair color: ${fetchedCharacter.hair_color} </li>
-        <li>Skin color: ${fetchedCharacter.skin_color}  </li>
-        <li>Eye color: ${fetchedCharacter.eye_color} </li>
-        <li> Birth year: ${fetchedCharacter.birth_year} </li>
-        <li>Gender: ${fetchedCharacter.gender} </li>
+        <li>Hair color: ${selectedCharacter.hair_color} </li>
+        <li>Skin color: ${selectedCharacter.skin_color}  </li>
+        <li>Eye color: ${selectedCharacter.eye_color} </li>
+        <li> Birth year: ${selectedCharacter.birth_year} </li>
+        <li>Gender: ${selectedCharacter.gender} </li>
       </ul>
     `;
-  console.log(fetchedCharacter);
 }
+
 //Function Planeter
-function getPlanets(homeworlds) {
-  console.log(homeworlds);
+function setPlanets(homeworlds) {
   ulPlanets.innerHTML = `
       <h2> ${homeworlds.name} </h2>
       <ul>
@@ -47,41 +119,103 @@ function getPlanets(homeworlds) {
         <li> Terrain: ${homeworlds.terrain} </li>
       </ul>
     `;
-  // console.log(fetchedCharacter);
+}
+// Function Species
+function setSpecies(species) {
+  ulPlanets.innerHTML = `
+      <h2> ${species.name} </h2>
+      <ul>
+        <li>Name: ${species.name} </li>
+        <li>Classification: ${species.classification} </li>
+        <li>Designation: ${species.designation} </li>
+        <li>Average height: ${species.average_height}  </li>
+        <li>Skin Colors: ${species.skin_colors} </li>
+        <li>Hair Colors: ${species.hair_colors} </li>
+        <li>Eye Colors: ${species.hair_colors} </li>
+        <li>Avarage lifespan: ${species.avarage_lifespan} </li>
+      </ul>
+    `;
+}
+function setVehicles(vehicles) {
+  ulPlanets.innerHTML = `
+      <h2> ${vehicles.name} </h2>
+      <ul>
+        <li>Name: ${vehicles.name} </li>
+        <li>Model: ${vehicles.model} </li>
+        <li>Manufacturer: ${vehicles.manufacturer} </li>
+        <li>Cost in credits: ${vehicles.cost_in_credits}  </li>
+        <li>Length: ${vehicles.length} </li>
+        <li>Crew: ${vehicles.crew} </li>
+        <li>Passangers: ${vehicles.passangers} </li>
+        <li>Cargo capacity: ${vehicles.cargo_capacity} </li>
+      </ul>
+    `;
 }
 
+function appendVehicles(vehicles) {
+  let charVehicles = document.querySelector(".vehicles");
+  charVehicles.addEventListener("click", () => {
+    setVehicles(vehicles);
+  });
+}
 ///Lägg till iteration för att skapa
 
-function getCharacterHomeWorld(character) {
-  fetch(character.homeworld)
+function getCharacterHomeworld() {
+  fetch(selectedCharacter.homeworld)
     .then((response) => {
       return response.json();
     })
     .then((homeworlds) => {
-      getPlanets(homeworlds);
+      setPlanets(homeworlds);
     });
 }
 
-function getCharacters(characters) {
-  let li;
-  const request = fetch(characters);
-  request
+function getCharacterSpecies() {
+  console.log("CALLED HERE with char", selectedCharacter);
+  if (selectedCharacter.species.length === 0) {
+    return;
+  }
+
+  fetch(selectedCharacter.species)
     .then((response) => {
       return response.json();
     })
-    .then((data) => {
-      fetchedData = data;
-      for (let i = 0; i <= data.results.length - 5; i++) {
-        let name = data.results[i].name;
-        li = document.createElement("li");
-        li.appendChild(document.createTextNode(name));
+    .then((species) => {
+      setSpecies(species);
+    });
+}
 
-        li.addEventListener("click", () => {
-          getDetails(data.results[i]);
-          getCharacterHomeWorld(data.results[i]);
-        });
-        ulChar.appendChild(li);
-      }
+function getCharacterVehicles() {
+  if (!selectedCharacter.vehicles || !selectedCharacter.vehicles[0]) {
+    return;
+  }
+  ulPlanets.innerHTML = ``;
+
+  selectedCharacter.vehicles.forEach((vehicle) => {
+    fetch(vehicle)
+      .then((response) => {
+        return response.json();
+      })
+      .then((res) => {
+        currentVehicles.push(res);
+        setVehicles(currentVehicles[0]);
+      });
+  });
+}
+
+function getCharacterStarships(character) {
+  if (!selectedCharacter.starships || !selectedCharacter.sharships[0]) {
+    return;
+  }
+  ulPlanets.innerHTML = ``;
+
+  fetch(character.starships)
+    .then((response) => {
+      return response.json();
+    })
+    .then((starships) => {
+      // Create function setStarships(starships)
+      // setStarships(starships);
     });
 }
 
@@ -143,27 +277,3 @@ generalCounter = () => {
   });
 };
 generalCounter();
-
-// function clickNext() {
-//   counterOne.innerText++;
-//   removeChars();
-//   getCharacters(fetchedData.next);
-// }
-
-// function clickPrevious() {
-//   counterOne.innerText--;
-//   removeChars();
-//   getCharacters(fetchedData.previous);
-// }
-
-// next.addEventListener("click", () =>{
-//   if(counterOne.innerText < 8){
-//     clickNext()
-//   }
-// });
-
-// previous.addEventListener("click", () =>{
-//   if(counterOne.innerText > 1){
-//     clickPrevious()
-//   }
-// });
