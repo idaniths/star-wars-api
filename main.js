@@ -1,12 +1,11 @@
-const nav = document.querySelector("nav");
-let counterOne = document.querySelector(".counterOne");
-let previous = document.getElementById("previous");
-let next = document.getElementById("next");
+// const nav = document.querySelector("nav");
 let ulChar = document.querySelector(".char__list");
 let ulDetails = document.querySelector(".details__char");
 const ulPlanets = document.querySelector(".details__planets");
 let li = document.createElement("li");
+
 let fetchedData;
+
 function initState() {
   getCharacters("https://swapi.dev/api/people/?page=1");
 }
@@ -17,8 +16,14 @@ function getDetails(fetchedCharacter) {
   ulDetails.innerHTML = `
       <h2> ${fetchedCharacter.name} </h2>
       <ul>
-        <li>Height: ${fetchedCharacter.height} </li>
-        <li>Mass: ${fetchedCharacter.mass} </li>  
+        <li>Height: ${fetchedCharacter.height}cm </li>
+        <li>Mass:   ${(() => {
+          if (fetchedCharacter.mass != "unknown") {
+            return `${fetchedCharacter.mass}kg`;
+          } else {
+            return `${fetchedCharacter.mass}`;
+          }
+        })()} </li>  
         <li>Hair color: ${fetchedCharacter.hair_color} </li>
         <li>Skin color: ${fetchedCharacter.skin_color}  </li>
         <li>Eye color: ${fetchedCharacter.eye_color} </li>
@@ -89,32 +94,76 @@ function removeChars() {
   }
 }
 function removeDetails() {
-  let charList = document.querySelectorAll(".details__char li");
-  for (let i = 0; i < charList.length; i++) {
-    charList[i].remove();
+  let ulPlanets = document.querySelectorAll(
+    ".details__planets li, .details__planets h2"
+  );
+  let ulChar = document.querySelectorAll(
+    ".details__char li, .details__char h2"
+  );
+  for (let i = 0; i < ulPlanets.length; i++) {
+    ulPlanets[i].remove();
+  }
+  for (let i = 0; i < ulChar.length; i++) {
+    ulChar[i].remove();
   }
 }
 
-function clickNext() {
-  if (counterOne.innerText < 8) {
+generalCounter = () => {
+  let counter = 1;
+  let counterOne = document.querySelector(".counterOne");
+  let previous = document.getElementById("previous");
+  let next = document.getElementById("next");
+
+  previous.style.visibility = "hidden";
+
+  next.addEventListener("click", () => {
+    counter++;
     counterOne.innerText++;
-  }
-  if (counterOne.innerText == 8) {
-    document.getElementById("next").disabled = true;
-  }
-  // removeDetails();
-  removeChars();
-  getCharacters(fetchedData.next);
-}
+    if (counter == 8) {
+      next.style.visibility = "hidden";
+    } else {
+      previous.style.visibility = "visible";
+    }
+    removeDetails();
+    removeChars();
+    getCharacters(fetchedData.next);
+  });
 
-function clickPrevious() {
-  if (counterOne.innerText > 1) {
+  previous.addEventListener("click", () => {
+    counter--;
     counterOne.innerText--;
-  }
-  // removeDetails();
-  removeChars();
-  getCharacters(fetchedData.previous);
-}
+    if (counter == 1) {
+      previous.style.visibility = "hidden";
+    } else {
+      next.style.visibility = "visible";
+    }
+    removeDetails();
+    removeChars();
+    getCharacters(fetchedData.previous);
+  });
+};
+generalCounter();
 
-next.addEventListener("click", clickNext);
-previous.addEventListener("click", clickPrevious);
+// function clickNext() {
+//   counterOne.innerText++;
+//   removeChars();
+//   getCharacters(fetchedData.next);
+// }
+
+// function clickPrevious() {
+//   counterOne.innerText--;
+//   removeChars();
+//   getCharacters(fetchedData.previous);
+// }
+
+// next.addEventListener("click", () =>{
+//   if(counterOne.innerText < 8){
+//     clickNext()
+//   }
+// });
+
+// previous.addEventListener("click", () =>{
+//   if(counterOne.innerText > 1){
+//     clickPrevious()
+//   }
+// });
