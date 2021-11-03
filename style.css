@@ -114,10 +114,13 @@ nav > div > div {
   margin-left: 0.4rem;
 }
 
-#next,
-#previous {
+#previous,
+#next{
   cursor: pointer;
 }
+
+
+
 
 li {
   list-style-type: none;

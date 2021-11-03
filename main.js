@@ -12,7 +12,7 @@ function initState() {
 }
 initState();
 
-//Function Detailjer
+//Function Details
 function getDetails(fetchedCharacter) {
   ulDetails.innerHTML = `
       <h2> ${fetchedCharacter.name} </h2>
@@ -28,7 +28,7 @@ function getDetails(fetchedCharacter) {
     `;
   console.log(fetchedCharacter);
 }
-//Function Planeter
+//Function Planets
 function getPlanets(homeworlds) {
   console.log(homeworlds);
   ulPlanets.innerHTML = `
@@ -96,25 +96,27 @@ function removeDetails() {
 }
 
 function clickNext() {
-  if (counterOne.innerText < 8) {
-    counterOne.innerText++;
-  }
-  if (counterOne.innerText == 8) {
-    document.getElementById("next").disabled = true;
-  }
-  // removeDetails();
+  counterOne.innerText++;
   removeChars();
   getCharacters(fetchedData.next);
 }
 
 function clickPrevious() {
-  if (counterOne.innerText > 1) {
-    counterOne.innerText--;
-  }
-  // removeDetails();
+  counterOne.innerText--;
   removeChars();
   getCharacters(fetchedData.previous);
 }
 
-next.addEventListener("click", clickNext);
-previous.addEventListener("click", clickPrevious);
+
+
+next.addEventListener("click", () =>{ 
+  if(counterOne.innerText < 8){
+    clickNext()
+  }
+});
+
+previous.addEventListener("click", () =>{ 
+  if(counterOne.innerText > 1){
+    clickPrevious()
+  }
+});
