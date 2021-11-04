@@ -1,0 +1,25 @@
+{
+  "name": "slutprojekt-native-javascript",
+  "version": "1.0.0",
+  "description": "ITHS Slutprojekt JS",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielPersson93/slutprojekt-native-javascript.git"
+  },
+  "keywords": [
+    "\"best\"",
+    "\"project\"",
+    "\"star\"",
+    "\"wars\""
+  ],
+  "author": "Alex, Daniel, Idan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielPersson93/slutprojekt-native-javascript/issues"
+  },
+  "homepage": "https://github.com/DanielPersson93/slutprojekt-native-javascript#readme"
+}

@@ -1,7 +1,12 @@
 let ulChar = document.querySelector(".char__list");
 let ulDetails = document.querySelector(".details__char");
-const ulPlanets = document.querySelector(".details__planets");
+let charArt = document.querySelector(".character_article");
+const ulInfo = document.querySelector(".details__info");
 const buttons = document.querySelectorAll("button");
+
+// const loader = document.querySelector(".loader");
+// loader.style.display = "inline-block";
+
 let selectedCharacter = null;
 // Buttons
 const charSpecies = document.querySelector(".species");
@@ -9,6 +14,7 @@ const charHomeworld = document.querySelector(".homeworld");
 const charVehicles = document.querySelector(".vehicles");
 const charStarships = document.querySelector(".starships");
 const currentVehicles = [];
+const currentStarship = [];
 
 function initState() {
   getCharacters("https://swapi.dev/api/people/?page=1");
@@ -29,19 +35,21 @@ function setUpButtonListeners() {
     getCharacterVehicles();
   });
   charStarships.addEventListener("click", () => {
-    getCharacterSpecies();
+    getCharacterStarships();
   });
 }
 
 initState();
 
 function getCharacters(characters) {
+  showLoader(ulChar);
   fetch(characters)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
       fetchedData = data;
+      hideLoader(ulChar);
       for (let i = 0; i <= data.results.length - 5; i++) {
         let name = data.results[i].name;
         const li = document.createElement("li");
@@ -84,11 +92,11 @@ function showOrHideAction(element, show) {
   }
 }
 
-//Function Detailjer
+//Function Details
 function setDetails(selectedCharacter) {
   ulDetails.innerHTML = `
-      <h2> ${selectedCharacter.name} </h2>
-      <ul>
+  <h2> ${selectedCharacter.name} </h2>
+  <ul>
         <li>Height: ${selectedCharacter.height}cm </li>
         <li>Mass:   ${(() => {
           if (selectedCharacter.mass != "unknown") {
@@ -96,7 +104,7 @@ function setDetails(selectedCharacter) {
           } else {
             return `${selectedCharacter.mass}`;
           }
-        })()} </li>  
+        })()} </li>
         <li>Hair color: ${selectedCharacter.hair_color} </li>
         <li>Skin color: ${selectedCharacter.skin_color}  </li>
         <li>Eye color: ${selectedCharacter.eye_color} </li>
@@ -106,9 +114,9 @@ function setDetails(selectedCharacter) {
     `;
 }
 
-//Function Planeter
-function setPlanets(homeworlds) {
-  ulPlanets.innerHTML = `
+//Function Info
+function setInfo(homeworlds) {
+  ulInfo.innerHTML = `
       <h2> ${homeworlds.name} </h2>
       <ul>
         <li>Rotation period: ${homeworlds.rotation_period} </li>
@@ -122,7 +130,7 @@ function setPlanets(homeworlds) {
 }
 // Function Species
 function setSpecies(species) {
-  ulPlanets.innerHTML = `
+  ulInfo.innerHTML = `
       <h2> ${species.name} </h2>
       <ul>
         <li>Name: ${species.name} </li>
@@ -137,7 +145,7 @@ function setSpecies(species) {
     `;
 }
 function setVehicles(vehicles) {
-  ulPlanets.innerHTML = `
+  ulInfo.innerHTML = `
       <h2> ${vehicles.name} </h2>
       <ul>
         <li>Name: ${vehicles.name} </li>
@@ -151,31 +159,40 @@ function setVehicles(vehicles) {
       </ul>
     `;
 }
-
-function appendVehicles(vehicles) {
-  let charVehicles = document.querySelector(".vehicles");
-  charVehicles.addEventListener("click", () => {
-    setVehicles(vehicles);
-  });
+function setStarships(starships) {
+  ulInfo.innerHTML = `
+      <h2> ${starships.name} </h2>
+      <ul>
+        <li>Name: ${starships.name} </li>
+        <li>Model: ${starships.model} </li>
+        <li>Manufacturer: ${starships.manufacturer} </li>
+        <li>Cost in credits: ${starships.cost_in_credits}  </li>
+        <li>Length: ${starships.length} </li>
+        <li>Crew: ${starships.crew} </li>
+        <li>Passangers: ${starships.passangers} </li>
+        <li>Cargo capacity: ${starships.cargo_capacity} </li>
+      </ul>
+    `;
 }
+
 ///Lägg till iteration för att skapa
 
 function getCharacterHomeworld() {
+  showLoader(ulInfo);
   fetch(selectedCharacter.homeworld)
     .then((response) => {
       return response.json();
     })
     .then((homeworlds) => {
-      setPlanets(homeworlds);
+      setInfo(homeworlds);
     });
 }
 
 function getCharacterSpecies() {
-  console.log("CALLED HERE with char", selectedCharacter);
   if (selectedCharacter.species.length === 0) {
     return;
   }
-
+  showLoader(ulInfo);
   fetch(selectedCharacter.species)
     .then((response) => {
       return response.json();
@@ -189,9 +206,10 @@ function getCharacterVehicles() {
   if (!selectedCharacter.vehicles || !selectedCharacter.vehicles[0]) {
     return;
   }
-  ulPlanets.innerHTML = ``;
 
+  ulInfo.innerHTML = ``;
   selectedCharacter.vehicles.forEach((vehicle) => {
+    showLoader(ulInfo);
     fetch(vehicle)
       .then((response) => {
         return response.json();
@@ -203,20 +221,22 @@ function getCharacterVehicles() {
   });
 }
 
-function getCharacterStarships(character) {
-  if (!selectedCharacter.starships || !selectedCharacter.sharships[0]) {
+function getCharacterStarships() {
+  if (!selectedCharacter.starships || !selectedCharacter.starships[0]) {
     return;
   }
-  ulPlanets.innerHTML = ``;
-
-  fetch(character.starships)
-    .then((response) => {
-      return response.json();
-    })
-    .then((starships) => {
-      // Create function setStarships(starships)
-      // setStarships(starships);
-    });
+  ulInfo.innerHTML = ``;
+  selectedCharacter.starships.forEach((starship) => {
+    showLoader(ulInfo);
+    fetch(starship)
+      .then((response) => {
+        return response.json();
+      })
+      .then((res) => {
+        currentStarship.push(res);
+        setStarships(currentStarship[0]);
+      });
+  });
 }
 
 // Counter functions
@@ -228,18 +248,28 @@ function removeChars() {
   }
 }
 function removeDetails() {
-  let ulPlanets = document.querySelectorAll(
-    ".details__planets li, .details__planets h2"
+  let ulInfo = document.querySelectorAll(
+    ".details__info li, .details__info h2"
   );
   let ulChar = document.querySelectorAll(
     ".details__char li, .details__char h2"
   );
-  for (let i = 0; i < ulPlanets.length; i++) {
-    ulPlanets[i].remove();
+  for (let i = 0; i < ulInfo.length; i++) {
+    ulInfo[i].remove();
   }
   for (let i = 0; i < ulChar.length; i++) {
     ulChar[i].remove();
   }
+}
+// Loader
+function showLoader(section) {
+  section.innerHTML = `<div class="loader"></div>`;
+
+  // loader.style.display = "inline-block";
+}
+
+function hideLoader(section) {
+  section.innerHTML = `<div class="loader hidden"></div>`;
 }
 
 generalCounter = () => {
