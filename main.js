@@ -47,9 +47,9 @@ function getCharacters(characters) {
       fetchedData = data;
       hideLoader(ulChar);
       for (let i = 0; i <= data.results.length; i++) {
-        let name = data.results[i].name;
+        let char = data.results[i].name;
         const li = document.createElement("li");
-        li.appendChild(document.createTextNode(name));
+        li.appendChild(document.createTextNode(char));
         li.addEventListener("click", () => {
           selectedCharacter = data.results[i];
           removeDetails();
@@ -212,7 +212,7 @@ function setStarships(starships) {
         <li>Cost in credits: ${starships.cost_in_credits}  </li>
         <li>Length: ${starships.length} </li>
         <li>Crew: ${starships.crew} </li>
-        <li>Passangers: ${starships.passangers} </li>
+        <li>Passangers: ${starships.passengers} </li>
         <li>Cargo capacity: ${starships.cargo_capacity} </li>
       </ul>
     `;
@@ -258,7 +258,7 @@ function getCharacterVehicles() {
         return response.json();
       })
       .then((res) => {
-        currentVehicles.push(res);
+        currentVehicles.unshift(res);
         setVehicles(currentVehicles[0]);
       });
   });
@@ -276,12 +276,13 @@ function getCharacterStarships() {
         return response.json();
       })
       .then((res) => {
-        currentStarship.push(res);
+        currentStarship.unshift(res);
         setStarships(currentStarship[0]);
       });
   });
 }
-
+console.log(currentStarship);
+console.log(currentVehicles);
 generalCounter = () => {
   let counter = 1;
   let counterOne = document.querySelector(".counterOne");
