@@ -32,8 +32,8 @@ Section .characters
 		kör en loop över result? väljer specifikt index, ex. data.results[0].name
 		li character -> eventListener -> function update .details
 	footer nav
-		2st knappar, sidoval, setInterval(??, 1500) = visa loading
-		räknare ex. <span class="counter">1<span> / 8 där currentSide++
+		2st knappar, sidoval
+		räknare ex. <span class="currentSide">1<span> / 8 där currentSide++
 
 Section .details
 	h2 - Details
@@ -48,7 +48,8 @@ Section .details
             		"birth_year": "112BBY", 
             		"gender": "n/a",
 
-			Skapa en funktion som filtrerar objektet, ex. "hair_color" -> "Hair color"
+					Skriv ut genom en template literal?
+
 		
 		article
 			append value from API - "https://swapi.dev/api/planets/1/" 8 pages total
@@ -60,6 +61,6 @@ Section .details
     			"gravity": "1 standard", 
     			"terrain": "desert",
 			
-		
+					Skriv ut genom en template literal?
 	
 	

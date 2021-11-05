@@ -1,16 +1,38 @@
 Planering:
 
-Gör en komponentsanalys kring mockup
-Lägg upp en grund i html och css
+- HTML/css
 
-Påbörja javascript
-Kör en fetch på aktuellt API
-Skapa en funktion i fetchen för att skriva ut aktuell info i lista
+- Kontinuerligt sätta upp querySelectors till aktuellt element
 
-Skapa en "navbar" med en counter och pilar för next/previous page
-Ordna med en function som tar bort föregående lista vid sidbyte
+- sätta upp ett Initiate state
 
-Implementera loading-spinner mellan sidbyten
+- skapa en "paginator" för att växla sida
 
+- kika på fetch kring characters
+
+- koppla "paginatorn" till att hämta next/previous från APIn
+
+- append character till en li
+
+- lägg till lyssnare på li vid click
+
+- skapa knappar för alternativ information
+
+- skapa funktioner för att appenda specifik information
+    - Character info
+    - Homeworld
+    - Species
+    - Vehicles
+    - Starships
+
+        BONUS: Skapa en cache för varje fetch
+
+- sätta upp listeners för specifik funktion/knapp
+
+- Implementera loader
+
+- skapa en funktion som gömmer knappar där information saknas
+
+- skapa funktioner för att gömma/visa både information och knappar vid sidbyte
 
 

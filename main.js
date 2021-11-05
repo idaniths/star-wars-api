@@ -2,10 +2,6 @@ let ulChar = document.querySelector(".char__list");
 let ulDetails = document.querySelector(".details__char");
 let charArt = document.querySelector(".character_article");
 const ulInfo = document.querySelector(".details__info");
-const buttons = document.querySelectorAll("button");
-
-// const loader = document.querySelector(".loader");
-// loader.style.display = "inline-block";
 
 let selectedCharacter = null;
 // Buttons
@@ -50,7 +46,7 @@ function getCharacters(characters) {
     .then((data) => {
       fetchedData = data;
       hideLoader(ulChar);
-      for (let i = 0; i <= data.results.length - 5; i++) {
+      for (let i = 0; i <= data.results.length; i++) {
         let name = data.results[i].name;
         const li = document.createElement("li");
         li.appendChild(document.createTextNode(name));
@@ -59,12 +55,16 @@ function getCharacters(characters) {
           removeDetails();
           showOrHideCharacterActions();
           setDetails(data.results[i]);
+          showButtons();
         });
         ulChar.appendChild(li);
       }
     });
 }
 
+// SHOW OR HIDE ACTIONS
+
+// INFOBUTTONS ------------------------------------
 function showOrHideCharacterActions() {
   showOrHideAction(
     charSpecies,
@@ -90,6 +90,49 @@ function showOrHideAction(element, show) {
   } else {
     element.style.display = "none";
   }
+}
+
+function hideButtons() {
+  const buttons = document.querySelectorAll("button");
+  for (btn of buttons) {
+    btn.style.visibility = "hidden";
+  }
+}
+
+function showButtons() {
+  const buttons = document.querySelectorAll("button");
+  for (btn of buttons) {
+    btn.style.visibility = "visible";
+  }
+}
+
+// HIDE/REMOVE DETAILS ------------------------------------
+function removeChars() {
+  let charList = document.querySelectorAll(".char__list li");
+  for (let i = 0; i < charList.length; i++) {
+    charList[i].remove();
+  }
+}
+function removeDetails() {
+  let ulInfo = document.querySelectorAll(
+    ".details__info li, .details__info h2"
+  );
+  let ulChar = document.querySelectorAll(
+    ".details__char li, .details__char h2"
+  );
+  for (let i = 0; i < ulInfo.length; i++) {
+    ulInfo[i].remove();
+  }
+  for (let i = 0; i < ulChar.length; i++) {
+    ulChar[i].remove();
+  }
+}
+// HIDE/SHOW LOADER ------------------------------------
+function showLoader(section) {
+  section.innerHTML = `<div class="loader"></div>`;
+}
+function hideLoader(section) {
+  section.innerHTML = `<div class="loader hidden"></div>`;
 }
 
 //Function Details
@@ -239,39 +282,6 @@ function getCharacterStarships() {
   });
 }
 
-// Counter functions
-
-function removeChars() {
-  let charList = document.querySelectorAll(".char__list li");
-  for (let i = 0; i < charList.length; i++) {
-    charList[i].remove();
-  }
-}
-function removeDetails() {
-  let ulInfo = document.querySelectorAll(
-    ".details__info li, .details__info h2"
-  );
-  let ulChar = document.querySelectorAll(
-    ".details__char li, .details__char h2"
-  );
-  for (let i = 0; i < ulInfo.length; i++) {
-    ulInfo[i].remove();
-  }
-  for (let i = 0; i < ulChar.length; i++) {
-    ulChar[i].remove();
-  }
-}
-// Loader
-function showLoader(section) {
-  section.innerHTML = `<div class="loader"></div>`;
-
-  // loader.style.display = "inline-block";
-}
-
-function hideLoader(section) {
-  section.innerHTML = `<div class="loader hidden"></div>`;
-}
-
 generalCounter = () => {
   let counter = 1;
   let counterOne = document.querySelector(".counterOne");
@@ -288,6 +298,7 @@ generalCounter = () => {
     } else {
       previous.style.visibility = "visible";
     }
+    hideButtons();
     removeDetails();
     removeChars();
     getCharacters(fetchedData.next);
@@ -301,6 +312,7 @@ generalCounter = () => {
     } else {
       next.style.visibility = "visible";
     }
+    hideButtons();
     removeDetails();
     removeChars();
     getCharacters(fetchedData.previous);
