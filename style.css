@@ -144,7 +144,7 @@ nav > div > div {
 
 #next,
 #previous {
-  cursor: pointer;
+  cursor: crosshair;
 }
 
 /* <------------DETAILS--------------> */
@@ -200,10 +200,11 @@ nav > div > div {
   color: white;
   font-size: 1rem;
 }
+
 .details__buttons {
   margin: 0;
   max-width: 100%;
-  max-height: 2rem;
+  max-height: 2.2rem;
   display: flex;
   justify-content: space-evenly;
   align-items: flex-end;
@@ -215,11 +216,12 @@ button {
   font-size: 0.7rem;
   color: #908342;
   border-color: transparent;
-  padding: 0.5rem 0.2rem 0.5rem 0.2rem;
+  padding: 0.4rem 0.2rem 0.4rem 0.2rem;
   border-radius: 0.5rem 0.5rem 0 0;
 }
 
 button:hover {
+  cursor: crosshair;
   background-color: #8e8e8e44;
 }
 
