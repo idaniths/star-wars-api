@@ -46,17 +46,10 @@ function getCharacters(characters) {
     .then((data) => {
       fetchedData = data;
       hideLoader(ulChar);
-<<<<<<< HEAD
       for (let i = 0; i < data.results.length; i++) {
         let names = data.results[i].name;
         const li = document.createElement("li");
         li.appendChild(document.createTextNode(names));
-=======
-      for (let i = 0; i <= data.results.length; i++) {
-        let char = data.results[i].name;
-        const li = document.createElement("li");
-        li.appendChild(document.createTextNode(char));
->>>>>>> 15a8791f67bec4975d7e8ee2efeda89bcb2421fd
         li.addEventListener("click", () => {
           selectedCharacter = data.results[i];
           removeDetails();
@@ -301,13 +294,8 @@ function getCharacterVehicles() {
         return response.json();
       })
       .then((res) => {
-<<<<<<< HEAD
         currentVehicles.push(res);
         setVehicles(currentVehicles);
-=======
-        currentVehicles.unshift(res);
-        setVehicles(currentVehicles[0]);
->>>>>>> 15a8791f67bec4975d7e8ee2efeda89bcb2421fd
       });
     hideLoader(ulInfo);
   });
