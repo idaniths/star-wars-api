@@ -9,7 +9,7 @@ const charSpecies = document.querySelector(".species");
 const charHomeworld = document.querySelector(".homeworld");
 const charVehicles = document.querySelector(".vehicles");
 const charStarships = document.querySelector(".starships");
-const currentVehicles = [];
+let currentVehicles = [];
 const currentStarship = [];
 
 function initState() {
@@ -46,16 +46,17 @@ function getCharacters(characters) {
     .then((data) => {
       fetchedData = data;
       hideLoader(ulChar);
-      for (let i = 0; i <= data.results.length; i++) {
-        let name = data.results[i].name;
+      for (let i = 0; i < data.results.length; i++) {
+        let names = data.results[i].name;
         const li = document.createElement("li");
-        li.appendChild(document.createTextNode(name));
+        li.appendChild(document.createTextNode(names));
         li.addEventListener("click", () => {
           selectedCharacter = data.results[i];
           removeDetails();
           showOrHideCharacterActions();
           setDetails(data.results[i]);
           showButtons();
+          // currentStarship = "";
         });
         ulChar.appendChild(li);
       }
@@ -187,20 +188,51 @@ function setSpecies(species) {
       </ul>
     `;
 }
-function setVehicles(vehicles) {
+
+let infoCounter = 0;
+infoPages = () => {
+  const nextInfo = document.getElementById("next__info");
+  const previousInfo = document.getElementById("previous__info");
+
+  nextInfo.addEventListener("click", () => {
+    infoCounter++;
+    if (infoCounter >= currentVehicles.length - 1) {
+      nextInfo.style.visibility = "visible";
+    } else {
+      previousInfo.style.visibility = "hidden";
+    }
+    setVehicles(currentVehicles, infoCounter);
+  });
+
+  previousInfo.addEventListener("click", () => {
+    infoCounter--;
+    if (infoCounter <= currentVehicles.length - 1) {
+      previousInfo.style.visibility = "hidden";
+    } else {
+      previousInfo.style.visibility = "visible";
+    }
+    setVehicles(currentVehicles, infoCounter);
+  });
+};
+infoPages();
+
+function setVehicles(vehicle) {
+  // for (let vehicle of vehicles) {
+  console.log(vehicle);
   ulInfo.innerHTML = `
-      <h2> ${vehicles.name} </h2>
-      <ul>
-        <li>Name: ${vehicles.name} </li>
-        <li>Model: ${vehicles.model} </li>
-        <li>Manufacturer: ${vehicles.manufacturer} </li>
-        <li>Cost in credits: ${vehicles.cost_in_credits}  </li>
-        <li>Length: ${vehicles.length} </li>
-        <li>Crew: ${vehicles.crew} </li>
-        <li>Passangers: ${vehicles.passangers} </li>
-        <li>Cargo capacity: ${vehicles.cargo_capacity} </li>
-      </ul>
+    <h2> ${vehicle[infoCounter].name} </h2>
+    <ul>
+    <li>Name: ${vehicle[infoCounter].name} </li>
+    <li>Model: ${vehicle[infoCounter].model} </li>
+    <li>Manufacturer: ${vehicle[infoCounter].manufacturer} </li>
+    <li>Cost in credits: ${vehicle[infoCounter].cost_in_credits}  </li>
+    <li>Length: ${vehicle[infoCounter].length} </li>
+    <li>Crew: ${vehicle[infoCounter].crew} </li>
+    <li>Passangers: ${vehicle[infoCounter].passangers} </li>
+    <li>Cargo capacity: ${vehicle[infoCounter].cargo_capacity} </li>
+    </ul>
     `;
+  // }
 }
 function setStarships(starships) {
   ulInfo.innerHTML = `
@@ -251,6 +283,10 @@ function getCharacterVehicles() {
   }
 
   ulInfo.innerHTML = ``;
+  // if (!selectedCharacter.vehicles || !selectedCharacter.vehicles[0]) {
+  //   return;
+  // }
+  currentVehicles = [];
   selectedCharacter.vehicles.forEach((vehicle) => {
     showLoader(ulInfo);
     fetch(vehicle)
@@ -259,13 +295,14 @@ function getCharacterVehicles() {
       })
       .then((res) => {
         currentVehicles.push(res);
-        setVehicles(currentVehicles[0]);
+        setVehicles(currentVehicles);
       });
+    hideLoader(ulInfo);
   });
 }
 
 function getCharacterStarships() {
-  if (!selectedCharacter.starships || !selectedCharacter.starships[0]) {
+  if (!selectedCharacter.starships) {
     return;
   }
   ulInfo.innerHTML = ``;
@@ -279,6 +316,7 @@ function getCharacterStarships() {
         currentStarship.push(res);
         setStarships(currentStarship[0]);
       });
+    hideLoader(ulInfo);
   });
 }
 
