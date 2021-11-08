@@ -46,10 +46,17 @@ function getCharacters(characters) {
     .then((data) => {
       fetchedData = data;
       hideLoader(ulChar);
+<<<<<<< HEAD
       for (let i = 0; i < data.results.length; i++) {
         let names = data.results[i].name;
         const li = document.createElement("li");
         li.appendChild(document.createTextNode(names));
+=======
+      for (let i = 0; i <= data.results.length; i++) {
+        let char = data.results[i].name;
+        const li = document.createElement("li");
+        li.appendChild(document.createTextNode(char));
+>>>>>>> 15a8791f67bec4975d7e8ee2efeda89bcb2421fd
         li.addEventListener("click", () => {
           selectedCharacter = data.results[i];
           removeDetails();
@@ -244,7 +251,7 @@ function setStarships(starships) {
         <li>Cost in credits: ${starships.cost_in_credits}  </li>
         <li>Length: ${starships.length} </li>
         <li>Crew: ${starships.crew} </li>
-        <li>Passangers: ${starships.passangers} </li>
+        <li>Passangers: ${starships.passengers} </li>
         <li>Cargo capacity: ${starships.cargo_capacity} </li>
       </ul>
     `;
@@ -294,8 +301,13 @@ function getCharacterVehicles() {
         return response.json();
       })
       .then((res) => {
+<<<<<<< HEAD
         currentVehicles.push(res);
         setVehicles(currentVehicles);
+=======
+        currentVehicles.unshift(res);
+        setVehicles(currentVehicles[0]);
+>>>>>>> 15a8791f67bec4975d7e8ee2efeda89bcb2421fd
       });
     hideLoader(ulInfo);
   });
@@ -313,13 +325,14 @@ function getCharacterStarships() {
         return response.json();
       })
       .then((res) => {
-        currentStarship.push(res);
+        currentStarship.unshift(res);
         setStarships(currentStarship[0]);
       });
     hideLoader(ulInfo);
   });
 }
-
+console.log(currentStarship);
+console.log(currentVehicles);
 generalCounter = () => {
   let counter = 1;
   let counterOne = document.querySelector(".counterOne");
