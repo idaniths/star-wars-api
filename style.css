@@ -39,7 +39,6 @@ header > h1 {
   src: url(/@font-face//0c724f6aa457310440cf8949c615cbd7.woff)
     format("truetype");
 }
-
 main {
   max-width: 1300px;
   background-color: #535556;
@@ -71,7 +70,6 @@ section {
   position: relative;
   animation: mymoveL 2s;
 }
-
 @keyframes mymoveL {
   from {
     left: -50rem;
@@ -80,7 +78,6 @@ section {
     left: 0rem;
   }
 }
-
 .character_article {
   position: static;
   height: 35rem;
@@ -111,16 +108,15 @@ section {
   opacity: 0;
   transition: 0.5s;
 }
-
 .character_article > ul > li:hover:after {
   opacity: 1;
   right: 10px;
 }
-
 .char__list {
   padding: 0;
   margin: 0;
 }
+
 /* <-------NAV IN CHARACTERS--------------> */
 nav {
   width: 100%;
@@ -142,8 +138,7 @@ nav > div > div {
   margin-left: 0.4rem;
 }
 
-#next,
-#previous {
+.material-icons {
   cursor: crosshair;
 }
 
@@ -161,7 +156,6 @@ nav > div > div {
     right: 0rem;
   }
 }
-
 .details > article {
   height: 50%;
   background-color: #e1dede;
@@ -200,7 +194,6 @@ nav > div > div {
   color: white;
   font-size: 1rem;
 }
-
 .details__buttons {
   margin: 0;
   max-width: 100%;
@@ -219,12 +212,10 @@ button {
   padding: 0.4rem 0.2rem 0.4rem 0.2rem;
   border-radius: 0.5rem 0.5rem 0 0;
 }
-
 button:hover {
   cursor: crosshair;
   background-color: #8e8e8e44;
 }
-
 button:focus {
   background-color: #8e8e8e;
   color: #fed702;
@@ -234,25 +225,16 @@ button:focus {
   background-color: #8e8e8e44;
   position: absolute;
   top: 30rem;
+  right: -3rem;
   box-shadow: 0.2rem 0.2rem 1rem black, -0.2rem -0.3rem 1rem rgb(235, 234, 233);
 }
 .infoArrows:hover {
-  cursor: crosshair;
   background-color: #8e8e8e;
-}
-
-.nextInfo {
-  right: -3rem;
-}
-
-.previousInfo {
-  left: -3rem;
 }
 
 /* <------------LIST IN GENERAL------------>  */
 li {
   list-style-type: none;
-  /* width: 100%; */
   font-size: 1.1rem;
   padding: 0.5rem 0 0.5rem 1rem;
   letter-spacing: 0.2rem;
@@ -262,12 +244,12 @@ li {
 li:nth-of-type(2n + 1) {
   background-color: #8e8e8e;
 }
+
 /* <-----------------LOADERS-------------------> */
 .loader {
   top: 30%;
   left: 40%;
   align-self: center;
-  /* display: inline-block; */
   position: relative;
   width: 80px;
   height: 80px;
@@ -284,7 +266,6 @@ li:nth-of-type(2n + 1) {
   border-color: #fed702 transparent #fed702 transparent;
   animation: loader 1.7s infinite;
 }
-
 @keyframes loader {
   0% {
     transform: rotate(0);

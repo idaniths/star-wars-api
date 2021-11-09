@@ -25,7 +25,7 @@ Planering:
     - Vehicles
     - Starships
 
-        BONUS: Skapa en cache för varje fetch
+        BONUS: Skapa en cache för varje fetch, async/await i separata JS-filer
 
 - sätta upp listeners för specifik funktion/knapp
 
@@ -34,5 +34,10 @@ Planering:
 - skapa en funktion som gömmer knappar där information saknas
 
 - skapa funktioner för att gömma/visa både information och knappar vid sidbyte
+
+- skapa tillfälliga arrayer med info kring spaceship/vehicle, dessa töms vid ny fetch
+
+- skapa en knapp för att växla mellan olika vehicles/starships, styrs med räknare som nollställs vid length-1
+
 
 
