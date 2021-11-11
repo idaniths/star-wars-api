@@ -288,7 +288,7 @@ function main() {
         <li>Cost in credits: ${vehicle[vehicleCounter].cost_in_credits}  </li>
         <li>Length: ${vehicle[vehicleCounter].length} </li>
         <li>Crew: ${vehicle[vehicleCounter].crew} </li>
-        <li>Passangers: ${vehicle[vehicleCounter].passangers} </li>
+        <li>Passengers: ${vehicle[vehicleCounter].passengers} </li>
         <li>Cargo capacity: ${vehicle[vehicleCounter].cargo_capacity} </li>
         <li>Vehicle class: ${vehicle[vehicleCounter].vehicle_class} </li>
       </ul>
@@ -308,7 +308,7 @@ function main() {
         <li>Cost in credits: ${starships[starshipCounter].cost_in_credits}  </li>
         <li>Length: ${starships[starshipCounter].length} </li>
         <li>Crew: ${starships[starshipCounter].crew} </li>
-        <li>Passangers: ${starships[starshipCounter].passengers} </li>
+        <li>Passengers: ${starships[starshipCounter].passengers} </li>
         <li>Cargo capacity: ${starships[starshipCounter].cargo_capacity} </li>
         <li>Starship class: ${starships[starshipCounter].starship_class} </li>
       </ul>
