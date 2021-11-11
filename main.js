@@ -15,8 +15,8 @@ function main() {
   /**
    * Buttons next vehicle & starship, counters and currentObjekt
    */
-  const nextVehicle = document.getElementById("vehicle__info");
-  const nextStarship = document.getElementById("starship__info");
+  const nextVehicle = document.querySelector(".nextVehicle");
+  const nextStarship = document.querySelector(".nextStarship");
   let currentVehicles = [];
   let currentStarship = [];
   let vehicleCounter = 0;
@@ -59,7 +59,7 @@ function main() {
       getCharacterStarships();
     });
     nextVehicle.addEventListener("click", () => {
-      document.getElementById("vehicle__btn").focus();
+      document.querySelector(".vehicles__btn").focus();
 
       /** If the length has reached the end, start from 0 */
       if (currentVehicles.length - 1 === vehicleCounter) {
@@ -70,7 +70,7 @@ function main() {
       setVehicles(currentVehicles, vehicleCounter);
     });
     nextStarship.addEventListener("click", () => {
-      document.getElementById("starship__btn").focus();
+      document.querySelector(".starships__btn").focus();
       /** If the length has reached the end, start from 0 */
       if (currentStarship.length - 1 === starshipCounter) {
         starshipCounter = 0;
