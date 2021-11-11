@@ -25,7 +25,6 @@ header {
 header > h1 {
   line-height: 4rem;
   letter-spacing: 0.2rem;
-  /* font-weight: 300; */
   font-size: 700;
   font-family: "Star Jedi", "Ropa Sans";
   padding-left: 5rem;
@@ -126,7 +125,6 @@ nav {
   font-size: large;
   display: flex;
   justify-content: center;
-  /* align-items: flex-end; */
   color: black;
 }
 nav > div {
