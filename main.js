@@ -280,16 +280,20 @@ function main() {
    * @param vehicle - Prints Characters Vehicles
    */
   function setVehicles(vehicle) {
+    let vehicleCapacity = vehicle.cargo_capacity;
+    if (vehicle.cargo_capacity != undefined) {
+      vehicleCapacity = `${vehicle.cargo_capacity} kg`;
+    }
     ulInfo.innerHTML = `
       <h2> ${vehicle[vehicleCounter].name} </h2>
       <ul>
         <li>Model: ${vehicle[vehicleCounter].model} </li>
         <li>Manufacturer: ${vehicle[vehicleCounter].manufacturer} </li>
         <li>Cost in credits: ${vehicle[vehicleCounter].cost_in_credits}  </li>
-        <li>Length: ${vehicle[vehicleCounter].length} </li>
+        <li>Length: ${vehicle[vehicleCounter].length} m </li>
         <li>Crew: ${vehicle[vehicleCounter].crew} </li>
         <li>Passengers: ${vehicle[vehicleCounter].passengers} </li>
-        <li>Cargo capacity: ${vehicle[vehicleCounter].cargo_capacity} </li>
+        <li>Cargo capacity: ${vehicleCapacity} </li>
         <li>Vehicle class: ${vehicle[vehicleCounter].vehicle_class} </li>
       </ul>
     `;
@@ -300,16 +304,20 @@ function main() {
    * @param  starships -Prints Characters starships
    */
   function setStarships(starships) {
+    let starshipsCapacity = starships.cargo_capacity;
+    if (starships.cargo_capacity != undefined) {
+      starshipsCapacity = `${starships.cargo_capacity} kg`;
+    }
     ulInfo.innerHTML = `
       <h2> ${starships[starshipCounter].name} </h2>
       <ul>
         <li>Model: ${starships[starshipCounter].model} </li>
         <li>Manufacturer: ${starships[starshipCounter].manufacturer} </li>
         <li>Cost in credits: ${starships[starshipCounter].cost_in_credits}  </li>
-        <li>Length: ${starships[starshipCounter].length} </li>
+        <li>Length: ${starships[starshipCounter].length}m</li>
         <li>Crew: ${starships[starshipCounter].crew} </li>
         <li>Passengers: ${starships[starshipCounter].passengers} </li>
-        <li>Cargo capacity: ${starships[starshipCounter].cargo_capacity} </li>
+        <li>Cargo capacity: ${starshipsCapacity} </li>
         <li>Starship class: ${starships[starshipCounter].starship_class} </li>
       </ul>
     `;
